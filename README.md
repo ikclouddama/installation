@@ -1,2 +1,9 @@
 # installation
-A script to install differnt packages yo different linux distro
+Script to install :
+- httpd
+- git
+- java
+- ansible 
+- docker
+ - jenkin
+ 
