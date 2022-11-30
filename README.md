@@ -1,5 +1,5 @@
 # installation
-Script to install :
+Script will install :
 - httpd
 - git
 - java
