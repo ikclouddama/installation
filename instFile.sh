@@ -118,7 +118,8 @@ funct_ansible () {
         read answer
         if [ $answer == Y ]
         then
-                echo " Docker yes tested"
+                sudo yum install docker.io -y
+		sudo yum update
         else
                 break
         fi
