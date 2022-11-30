@@ -7,7 +7,18 @@ funct_httpd (){
          read answer
          if [ $answer == Y ]
          then
-             echo yes test
+             sudo yum update -y
+	     sudo yum install httpd -y
+	     sudo systemctl enable httpd
+	     sudo systemctl start httpd
+	     sudo systemctl status httpd
+             echo $?
+	     if [ $? == 0 ]
+	     then
+		     echo "httpd installed with success!!"
+	     else
+		     echo "error try it again"
+	     fi
          else
          break
 	 fi
@@ -22,7 +33,12 @@ funct_git () {
 	read answer 
 	if [ $answer == Y ] 
 	then
-		echo " Git yes tested"
+		sudo yum update 
+		sudo yum install git -y
+	       if [ $? == 0 ]
+	       then
+	           echo " Git successfully installed"
+               fi		   
 	else
 		break
 	fi
@@ -37,7 +53,15 @@ funct_ansible () {
         read answer
         if [ $answer == Y ]
         then
-                echo " ansible yes tested"
+                sudo yum install epel-release
+		sudo amazon-linux-extras install ansible2 -y
+               	sudo yum update -y
+		if [ $? == 0 ] 
+		then
+			echo ansible has been installed successfuly 
+		else
+			echo error while insllaling ansible
+		fi
         else
                 break
         fi
@@ -51,7 +75,8 @@ funct_ansible () {
         read answer
         if [ $answer == Y ]
         then
-                echo " Java yes tested"
+                 sudo yum install java-11-openjdk -y
+		
         else
                 break
         fi
@@ -65,7 +90,22 @@ funct_ansible () {
         read answer
         if [ $answer == Y ]
         then
-                echo " Jenkins yes tested"
+                sudo yum install wget -y
+		sudo wget -O /etc/yum.repos.d/jenkins.repo \
+                https://pkg.jenkins.io/redhat-stable/jenkins.repo
+		sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+		sudo yum upgrade -y
+		sudo yum install jenkins -y
+		sudo systemctl daemon-reload
+		sudo systemctl enable jenkins
+		sudo systemctl start jenkins
+		sudo systemctl status jenkins
+		if [ $? == 0 ]
+		then
+			echo Jenkins has been installed successfuly
+		else
+			echo error while installing jenkis 
+		fi
         else
                 break
         fi
