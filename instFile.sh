@@ -1,25 +1,30 @@
 #!/bin/bash
+#Author : Ibrehima Keita
+# 
 # Function to install httpd
 # Functions for Linux servers
 
 funct_httpd (){
 	 echo "Are sure you want to install httpd Y or N"
          read answer
-         if [ $answer == Y ]
+	 httpdsbin=`cat /usr/sbin/httpd`
+         if [ $? != 0 ] && [ $answer == Y ]
          then
              sudo yum update -y
 	     sudo yum install httpd -y
 	     sudo systemctl enable httpd
 	     sudo systemctl start httpd
 	     sudo systemctl status httpd
-             echo $?
-	     if [ $? == 0 ]
+             if [ $? == 0 ]
 	     then
 		     echo "httpd installed with success!!"
-	     else
-		     echo "error try it again"
-	     fi
+	      fi
          else
+		 httpdbin=`cat /usr/sbin/httpd`
+		 if [ $? == 0 ]
+		 then
+			 echo " httpd already installed on this server"
+		 fi
          break
 	 fi
 	 
@@ -31,7 +36,8 @@ funct_git () {
 
         echo " Are you sure installing git Y or N"
 	read answer 
-	if [ $answer == Y ] 
+	gitsbine=`cat /bin/git`
+	if [ $? != 0 ] && [ $answer == Y ] 
 	then
 		sudo yum update 
 		sudo yum install git -y
@@ -40,8 +46,15 @@ funct_git () {
 	           echo " Git successfully installed"
                fi		   
 	else
+		gitsbin=`cat /bin/git`
+		if [ $? == 0 ]
+		then
+			echo " Git is already installed on this server"
+		fi
 		break
+	
 	fi
+	
 
  }
 
@@ -51,7 +64,8 @@ funct_ansible () {
 
         echo " Are you sure installing ansible Y or N"
         read answer
-        if [ $answer == Y ]
+	ansiblesbin=`cat /bin/ansible`
+        if [ $? != 0 ] && [ $answer == Y ]
         then
                 sudo yum install epel-release
 		sudo amazon-linux-extras install ansible2 -y
@@ -59,11 +73,16 @@ funct_ansible () {
 		if [ $? == 0 ] 
 		then
 			echo ansible has been installed successfuly 
-		else
-			echo error while insllaling ansible
+	else
+			ansiblebin=`cat /bin/ansible`
+			if [ $? == 0 ] 
+			then 
+				echo "Ansible is already installed on this server"
+			fi
+			
 		fi
-        else
-                break
+        
+                
         fi
 
  }
@@ -90,13 +109,12 @@ funct_ansible () {
         read answer
         if [ $answer == Y ]
         then
-                sudo yum install wget -y
-		sudo wget -O /etc/yum.repos.d/jenkins.repo \
-                https://pkg.jenkins.io/redhat-stable/jenkins.repo
+                sudo yum update –y
+		sudo wget -O /etc/yum.repos.d/jenkins.repo \ https://pkg.jenkins.io/redhat-stable/jenkins.repo
 		sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-		sudo yum upgrade -y
+		sudo yum upgrade
+		sudo amazon-linux-extras install java-openjdk11 -y
 		sudo yum install jenkins -y
-		sudo systemctl daemon-reload
 		sudo systemctl enable jenkins
 		sudo systemctl start jenkins
 		sudo systemctl status jenkins
