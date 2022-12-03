@@ -34,26 +34,26 @@ funct_httpd (){
 # Function to install git 
 funct_git () {
 
-        echo " Are you sure installing git Y or N"
-	read answer 
-	gitsbine=`cat /bin/git`
-	if [ $? != 0 ] && [ $answer == Y ] 
-	then
-		sudo yum update 
-		sudo yum install git -y
-	       if [ $? == 0 ]
-	       then
-	           echo " Git successfully installed"
-               fi		   
-	else
-		gitsbin=`cat /bin/git`
-		if [ $? == 0 ]
-		then
-			echo " Git is already installed on this server"
-		fi
-		break
-	
-	fi
+         echo "Are sure you want to install git Y or N"
+         read answer
+         gitbin=`cat /bin/git`
+         if [ $? != 0 ] && [ $answer == Y ]
+         then
+             sudo yum update -y
+             sudo yum install git -y
+             if [ $? == 0 ]
+             then
+                     echo "git installed with success!!"
+              fi
+         else
+                 gitbin=`cat /bin/git`
+                 if [ $? == 0 ]
+                 then
+                         echo " git already installed on this server"
+                 fi
+         break
+         fi
+
 	
 
  }
@@ -62,28 +62,26 @@ funct_git () {
  
 funct_ansible () {
 
-        echo " Are you sure installing ansible Y or N"
-        read answer
-	ansiblesbin=`cat /bin/ansible`
-        if [ $? != 0 ] && [ $answer == Y ]
-        then
-                sudo yum install epel-release
-		sudo amazon-linux-extras install ansible2 -y
-               	sudo yum update -y
-		if [ $? == 0 ] 
-		then
-			echo ansible has been installed successfuly 
-	else
-			ansiblebin=`cat /bin/ansible`
-			if [ $? == 0 ] 
-			then 
-				echo "Ansible is already installed on this server"
-			fi
-			
-		fi
-        
-                
-        fi
+        echo "Are sure you want to install ansible Y or N"
+         read answer
+         gitbin=`cat /bin/ansible`
+         if [ $? != 0 ] && [ $answer == Y ]
+         then
+             sudo yum install epel-release
+             sudo amazon-linux-extras install ansible2 -y
+             sudo yum update -y
+             if [ $? == 0 ]
+             then
+                     echo "ansible installed with success!!"
+              fi
+         else
+                 gitbin=`cat /bin/git`
+                 if [ $? == 0 ]
+                 then
+                         echo " ansible already installed on this server"
+                 fi
+         break
+         fi
 
  }
 # Function to install java
