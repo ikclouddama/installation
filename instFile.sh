@@ -1,3 +1,6 @@
+#Author: Ibrehima Keita
+# Devops Engineer 
+#12/02/2022
 #!/bin/bash
 #Author : Ibrehima Keita
 # 
